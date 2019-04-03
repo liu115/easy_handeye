@@ -21,7 +21,6 @@
     <depend>std_srvs</depend>
     <depend>visp_hand2eye_calibration</depend>
 
-    <exec_depend>tf</exec_depend>
     <exec_depend>tf2_ros</exec_depend>
     
     <export>
