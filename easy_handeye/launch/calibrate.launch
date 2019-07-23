@@ -37,13 +37,13 @@
     </group>
 
     <!-- Run the ViSP solver to determine the extrinsic parameters -->
-    <node ns="$(arg namespace)" name="hand_eye_solver"
+    <node name="hand_eye_solver"
           pkg="visp_hand2eye_calibration"
           type="visp_hand2eye_calibration_calibrator">
         <remap from="/compute_effector_camera_quick" to="compute_effector_camera_quick"/>
     </node>
 
-    <group ns="$(arg namespace)" >
+    <group >
         <param name="eye_on_hand" value="$(arg eye_on_hand)"/>
         <param name="robot_base_frame" value="$(arg robot_base_frame)" />
         <param name="robot_effector_frame" value="$(arg robot_effector_frame)" />
@@ -53,7 +53,6 @@
 
     <!-- Connect the tracker to the solver -->
     <node name="hand_eye_connector"
-          ns="$(arg namespace)"
           pkg="easy_handeye"
           type="calibrate.py"
           output="screen" />
@@ -71,7 +70,7 @@
     <node if="$(arg start_rviz)" name="$(anon rviz)" pkg="rviz" type="rviz" respawn="true" 
           args="-d $(arg rviz_config_file)" output="screen" />
         
-    <node if="$(arg start_rqt)" ns="$(arg namespace)" name="$(anon namespace)_rqt" pkg="rqt_gui" type="rqt_gui" respawn="false" 
+    <node if="$(arg start_rqt)" name="$(anon namespace)_rqt" pkg="rqt_gui" type="rqt_gui" respawn="false" 
             args="--clear-config --perspective-file $(arg rqt_perspective_file)" output="screen" />
     <node unless="$(arg freehand_robot_movement)" name="calibration_mover" pkg="rqt_easy_handeye" type="rqt_calibrationmovements" respawn="false" >
         <param name="move_group" value="$(arg move_group)" />
